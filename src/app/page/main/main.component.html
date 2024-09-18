@@ -1,0 +1,45 @@
+<div
+    style="display: flex; flex-direction: column; width: 80%;"
+>
+    <div>
+        <button (click)="findAll()">
+            ทุกประเทศ
+        </button>
+        <button *ngFor="let country of this.countries" (click)="findByCountry(country.name)">
+            {{country.name}}
+        </button>
+        <button (click)="addnew()">
+            เพิ่มข้อมูลใหม่
+        </button>
+    </div>
+
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 400px;">
+            <mat-selection-list #landmark [multiple]="false"
+            (selectionChange)="show($event.options[0])"
+            style="max-height: 100vh; overflow: auto;">
+                <mat-list-option *ngFor="let landmark of this.landmarks" [value]="landmark"
+                style="width: 400px; height: 160px;">
+                    <div>
+                        <img src="{{landmark.url}}" height="150px"  width="200px">
+                        {{landmark.name}}
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+
+        <div>
+            <div *ngIf="selectedLandmark != undefined">
+                <div style="display: flex; flex-direction: column;">
+                    <img src="{{this.selectedLandmark.url}}" width="500px">
+                    <span>{{this.selectedLandmark.name}}</span>
+                    <span>{{this.selectedLandmark.country}}</span>
+                    <span>{{this.selectedLandmark.detail}}</span>
+                    <div><button (click)="edit()">แก้ไข</button></div>
+                    <div><button (click)="delete(this.selectedLandmark.idx)">ลบ</button></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
